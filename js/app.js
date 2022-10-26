@@ -32,6 +32,9 @@ let currentPlayerName = player0Name;
 
 //Roll the dice, then display the dice 
 function rollDice() {
+    if (inputWinAmount.value == "") {
+        inputWinAmount.value == 100
+    } 
     //Disable the input field
     inputWinAmount.setAttribute("disabled", "disabled")
 
