@@ -10,7 +10,8 @@ const btnHold = document.querySelector(".btn-hold");
 const btnNewGame = document.querySelector(".btn-new");
 
 //Get the input field
-const inputWinAmount = document.querySelector(".final-score")
+let inputWinAmount = document.querySelector(".final-score")
+let winAmount = inputWinAmount.value
 
 //Get player 0 stats
 const player0Name = document.querySelector("#name-0");
@@ -32,9 +33,14 @@ let currentPlayerName = player0Name;
 
 //Roll the dice, then display the dice 
 function rollDice() {
+    //If the input field is empty, set the value to 100
     if (inputWinAmount.value == "") {
-        inputWinAmount.value == 100
+        inputWinAmount.setAttribute("value", 100)
+        inputWinAmount = document.querySelector(".final-score")
+        console.log("input value changed");
     } 
+    console.log(inputWinAmount.getAttribute("value"));
+    console.log(inputWinAmount.value);
     //Disable the input field
     inputWinAmount.setAttribute("disabled", "disabled")
 
@@ -119,10 +125,10 @@ function holdPoints() {
         total = 0;
         currentPlayerScore.textContent = total;
 
-        if (currentPlayerHeld.textContent >= inputWinAmount.value) {
-            setTimeout(() => {
-                currentPlayerName.textContent = "WINNER!"
-            }, 100);
+        if (parseInt(currentPlayerHeld.textContent) >= parseInt(inputWinAmount.getAttribute("value")) || parseInt(currentPlayerHeld.textContent) >= inputWinAmount.value) {
+            currentPlayerName.textContent = "WINNER!"
+            btnRollDice.setAttribute("disabled", "disabled")
+            btnHold.setAttribute("disabled", "disabled")
         } else {
             //Clear local storage item
             localStorage.removeItem("Current player score");
